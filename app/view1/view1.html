@@ -1,0 +1,116 @@
+<h1>
+    Westbroek landing
+</h1>
+<a-scene>
+    <a-assets>
+        <img id="altimeter" src="altimeter.png">
+
+        <img id="wb12_T" src="../wb12_T.png">
+        <img id="wb12_L" src="../wb12_L.png">
+        <img id="wb12_R" src="../wb12_R.png">
+        <img id="wb12_B" src="../wb12_B.png">
+        <img id="wb13_T" src="../wb13_T.png">
+        <img id="wb13_L" src="../wb13_L.png">
+        <img id="wb13_R" src="../wb13_R.png">
+        <img id="wb13_B" src="../wb13_B.png">
+        <img id="wb14_T" src="../wb14_T.png">
+        <img id="wb14_L" src="../wb14_L.png">
+        <img id="wb14_R" src="../wb14_R.png">
+        <img id="wb14_B" src="../wb14_B.png">
+        <img id="wb15_T" src="../wb15_T.png">
+        <img id="wb15_L" src="../wb15_L.png">
+        <img id="wb15_R" src="../wb15_R.png">
+        <img id="wb15_B" src="../wb15_B.png">
+        <img id="wb16_T" src="../wb16_T.png">
+        <img id="wb16_L" src="../wb16_L.png">
+        <img id="wb16_R" src="../wb16_R.png">
+        <img id="wb16_B" src="../wb16_B.png">
+
+        <img id="wb17" src="../wb17_metT.png">
+
+    </a-assets>
+    <!--a-sky color="#81F7F3" src="lucht.jpg" radius="9000"></a-sky-->
+    <!--a-box color="#81F7F3"   position="0 5005 0" depth="10000" width="10000" height="0.01"></a-box-->
+    <!--a-cylinder color="#00ff00" height="10000" radius="20000" position="0 0 0" side="double" open-ended="true"> </a-cylinder-->
+    <a-entity id="landingzone" >
+        <a-cylinder color="#81F7F3" height="1" radius="9000" position="0 9000 0" open-ended="false"> </a-cylinder>
+        <a-curvedimage src="lucht.jpg" height="9000" radius="9000" position="0 4500 0"></a-curvedimage>
+        <a-cylinder color="#00ff00" height="300" radius="9000" position="0 -150 0" side='double' open-ended="true"> </a-cylinder>
+        <!--a-cylinder color="#00ff00" height="1" radius="9000" position="0 -300 0" open-ended="false"> </a-cylinder-->
+        <!--a-image src="#westbroek" height="5700" width="9500" position="0 0 0" rotation="-90 0 0"></a-image-->
+        <!--a-cylinder color="#ff0000" height="1" radius="3000" position="0 110 0" open-ended="false"> </a-cylinder-->
+
+        <a-image src="#wb12_T"  height="3000" width="12000" position="0 0 -4500" rotation="-90 0 0"></a-image>
+        <a-image src="#wb12_L"  height="6000" width="3000" position="-4500 0 0" rotation="-90 0 0"></a-image>
+        <a-image src="#wb12_R"  height="6000" width="3000" position="4500 0 0" rotation="-90 0 0"></a-image>
+        <a-image src="#wb12_B"  height="3000" width="12000" position="0 0 4500" rotation="-90 0 0"></a-image>
+        <a-image src="#wb13_T"  height="1500" width="6000" position="0 0 -2250" rotation="-90 0 0"></a-image>
+        <a-image src="#wb13_L"  height="3000" width="1500" position="-2250 0 0" rotation="-90 0 0"></a-image>
+        <a-image src="#wb13_R"  height="3000" width="1500" position="2250 0 0" rotation="-90 0 0"></a-image>
+        <a-image src="#wb13_B"  height="1500" width="6000" position="0 0 2250" rotation="-90 0 0"></a-image>
+        <a-image src="#wb14_T"  height="750" width="3000" position="0 0 -1125" rotation="-90 0 0"></a-image>
+        <a-image src="#wb14_L"  height="1500" width="750" position="-1125 0 0" rotation="-90 0 0"></a-image>
+        <a-image src="#wb14_R"  height="1500" width="750" position="1125 0 0" rotation="-90 0 0"></a-image>
+        <a-image src="#wb14_B"  height="750" width="3000" position="0 0 1125" rotation="-90 0 0"></a-image>
+        <a-image src="#wb15_T"  height="375" width="1500" position="0 0 -562.5" rotation="-90 0 0"></a-image>
+        <a-image src="#wb15_L"  height="750" width="375" position="-562.5 0 0" rotation="-90 0 0"></a-image>
+        <a-image src="#wb15_R"  height="750" width="375" position="562.5 0 0" rotation="-90 0 0"></a-image>
+        <a-image src="#wb15_B"  height="375" width="1500" position="0 0 562.5" rotation="-90 0 0"></a-image>
+        <a-image src="#wb16_T"  height="187.5" width="750" position="0 0 -281.25" rotation="-90 0 0"></a-image>
+        <a-image src="#wb16_L"  height="375" width="187.5" position="-281.25 0 0" rotation="-90 0 0"></a-image>
+        <a-image src="#wb16_R"  height="375" width="187.5" position="281.25 0 0" rotation="-90 0 0"></a-image>
+        <a-image src="#wb16_B"  height="187.5" width="750" position="0 0 281.25" rotation="-90 0 0"></a-image>
+
+        <a-image src="#wb17"  height="375" width="375" position="0 0 0" rotation="-90 0 0"></a-image>
+
+        <a-entity id="markings" position="0 {{altitude/100+0.1}} 0">
+            <!-- T -->
+            <!--a-box color="#ffff00" position="0 0.1 -10" depth="0.8" width="8" height=".005"></a-box>
+            <a-box color="#ffff00" position="0 0.1 -5" depth="9" width="0.8" height=".005"></a-box-->
+
+            <!-- flag -->
+            <a-box color="#000000" position="2.5 1 -5.5" depth="0.01" width=".01" height="2"></a-box>
+            <a-box color="#0000ff" position="2.5 1.91 -5" depth="1" width="0.01" height=".2"></a-box>
+        </a-entity>
+
+    </a-entity>
+
+
+    <a-entity id="jumper" parachute-controls="hspeed: 8; vspeed: -4; windspeed: 4; winddirection: 0; atimeterarrow: altimeterarrow"
+              position="{{posx}} {{altitude+0.05}} {{posz}}"
+              rotation="0 0 0">
+        <!-- risers -->
+        <a-box color="#000000" position="0.2 1.7 -0.025" depth="0.001" width="0.04" height=".5"
+               rotation="-30 -0 0"></a-box>
+        <a-box color="#000000" position="-0.2 1.7 -0.025" depth="0.001" width="0.04" height=".5"
+               rotation="-30 -0 0"></a-box>
+        <a-box color="#000000" position="0.2 1.7 0.225" depth="0.001" width="0.04" height=".5"
+               rotation="30 -0 0"></a-box>
+        <a-box color="#000000" position="-0.2 1.7 0.225" depth="0.001" width="0.04" height=".5"
+               rotation="30 -0 0"></a-box>
+
+
+        <!-- canopy -->
+        <a-box color="#ff0000" position="0 4 .1" depth="3" width="7" height=".3" rotation="-5 0 0"></a-box>
+
+
+        <!-- man -->
+        <a-box color="#00ff00" position="0 1.1 .1" depth=".15" width=".4" height=".7" opacity="1"></a-box>
+        <a-box color="#00ff00" position="0.125 .325 .1" depth=".15" width=".15" height=".75"></a-box>
+        <a-box color="#00ff00" position="-0.125 .325 .1" depth=".15" width=".15" height=".75"></a-box>
+        <a-box color="#ff8080" position="0.125 0 -.05" depth=".30" width=".15" height=".05"></a-box>
+        <a-box color="#ff8080" position="-0.125 0 -.05" depth=".30" width=".15" height=".05"></a-box>
+
+
+        <!-- altimeter -->
+        <a-image src="#altimeter" height=".05" width=".05" position="0 1.3 0" rotation="-90 0 0"></a-image>
+        <a-entity id="altimeterarrow" position="0 1.31 0" rotation="0 {{altiangle}} 0">
+            <a-box color="#000000" position="0 0 -.0085" depth=".02" width=".001" height=".0001"></a-box>
+        </a-entity>
+
+        <a-entity camera look-controls position="0 1.6 0">
+
+        </a-entity>
+    </a-entity>
+
+</a-scene>

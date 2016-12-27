@@ -1,0 +1,18 @@
+<body>
+<h1>keyboard</h1>
+<a-scene>
+    <a-light type="spot" color="#333" position="-20 0 0" look-at="a-box"></a-light>
+    <a-light type="point" color="#AAA" position="0 5 0"></a-light>
+    <a-entity>
+        <a-entity camera look-controls position="0 0 0">
+
+        </a-entity>
+    </a-entity>
+    <a-entity parachute-controls position="0 0 0">
+        <!--<a-entity camera>-->
+        <!--</a-entity>-->
+        <a-box color="black" width="1" height="1" depth="100"></a-box>
+        <a-entity id="keyboard" keyboard="abcdefghijklmnopqrstuvwxyz" layout="type: box; columns: 26"></a-entity>
+        <a-entity keyboard-output="#keyboard"></a-entity>
+    </a-entity>
+</a-scene>
