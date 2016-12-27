@@ -13,6 +13,7 @@ gen/
 www/
 node_modules/
 app/bower_components
+bower_components
 
 # Local configuration file (sdk path, etc)
 local.properties
