@@ -1,6 +1,6 @@
 'use strict';
 
-describe('myApp.version module', function() {
+describe('wbvr.version module', function() {
   beforeEach(module('myApp.version'));
 
   describe('version service', function() {

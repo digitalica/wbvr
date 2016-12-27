@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('myApp.viewMain', ['ngRoute'])
+angular.module('wbvr.viewMain', ['ngRoute'])
 
   .config(['$routeProvider', function ($routeProvider) {
     $routeProvider.when('/viewMain', {

@@ -1,11 +1,34 @@
-var express = require('express');
+var joystick = new (require('joystick'))(0, 1, 350);
 
+var express = require('express');
 var app = express();
 
-var port = 3000;
+var port = process.env.PORT || '3000';
 
-app.use('/', express.static('app'));
+app.use('/', express.static(__dirname + '/app'));
 
-app.listen(port, function () {
+
+var io = require('socket.io').listen(app.listen(port, function () {
   console.log('listening at port ' + port)
+}));
+
+//
+// below the socketIO stuff
+//
+
+io.on('connection', function (client) {
+  console.log('Client connected...');
+
+  client.on('pause', function (data) {
+    console.log('pause');
+  });
+
 });
+
+
+joystick.on('axis', function (data) {
+  // console.log('send steering ' + value);
+  data.value = Math.floor((data.value + 32767) / 655.36);
+  io.emit('steering', data);
+});
+

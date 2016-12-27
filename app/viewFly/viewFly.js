@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('myApp.viewFly', ['ngRoute'])
+angular.module('wbvr.viewFly', ['ngRoute'])
 
   .config(['$routeProvider', function ($routeProvider) {
     $routeProvider.when('/viewFly', {
