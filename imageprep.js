@@ -1,48 +1,17 @@
 /**
  * Created by robbert on 24-12-16.
+ *
+ * This script is able to get images for the ground from Google Maps Static API
+ *
+ * and then crop them and name them to be used in the a-scene. Intended to be used once,
+ * to get the tiles as .png files.
+ *
  */
 
 var fs = require('fs');
 var async = require('async');
 var gm = require('google-static-map').set('AIzaSyCRXClXDDsIHf6d_3NmJ0IcH5jwePTNHLs');
 var lwip = require('lwip');
-
-
-var sourceimages = [
-  {
-    name: 'wb1.png',
-    size: 24000
-  },
-  {
-    name: 'wb2.png',
-    size: 12000
-  },
-  {
-    name: 'wb3png',
-    size: 6000
-  },
-  {
-    name: 'wb4.png',
-    size: 6000
-  },
-  {
-    name: 'wb5.png',
-    size: 24000
-  },
-  {
-    name: 'wb6.png',
-    size: 12000
-  },
-  {
-    name: 'wb7.png',
-    size: 24000
-  },
-  {
-    name: 'wb8.png',
-    size: 48000
-  }
-];
-
 
 // for (var z = 12; z <= 17; z++) {
 //   var stream = gm()

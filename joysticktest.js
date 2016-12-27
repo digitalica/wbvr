@@ -1,3 +1,11 @@
+/**
+ * Created by robbert on 28-12-16.
+ *
+ * Just a test of the joystick npm module, to see if we can read
+ * the nice controller Eelco build for this project.
+ */
+
+
 // Set a deadzone of +/-3500 (out of +/-32k) and a sensitivty of 350 to reduce signal noise in joystick axis
 var joystick = new (require('joystick'))(0, 1, 350);
 
