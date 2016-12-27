@@ -49,6 +49,27 @@ var pararchuteComponent = {
     var data = this.data;
     var el = this.el;
 
+
+    this.steeringLeft = 0;
+    this.steeringRight = 0;
+    this.socket = io();
+
+    this.socket.on('steering', function (steeringdata) {
+      switch (steeringdata.number) {
+        case 0:
+          console.log('steering R: ' + JSON.stringify(steeringdata));
+          data.steeringRight = steeringdata.value;
+          break;
+        case 1:
+          console.log('steering L: ' + JSON.stringify(steeringdata));
+          data.steeringLeft = steeringdata.value;
+          break;
+      }
+      console.log('steeringON ' + data.steeringLeft + '  ' + data.steeringRight);
+
+    });
+
+
     // To keep track of the pressed keys.
     this.keys = {};
 
@@ -87,6 +108,7 @@ var pararchuteComponent = {
     var keys = this.keys;
     var el = this.el;
     var movementVector;
+    console.log('steering ' + data.steeringLeft + '  ' + data.steeringRight);
 
     // Use seconds.
     delta = delta / 1000;
@@ -95,24 +117,24 @@ var pararchuteComponent = {
     movementVector.multiplyScalar(delta);
 
     // update direction
-    if (keys.KeyD || keys.ArrowRight) {
+    if (keys.KeyD || keys.ArrowRight || data.steeringRight > 50) {
       this.direction -= data.rspeed * delta;
       if (this.direction < 0) {
         this.direction += 360;
       }
     }
-    if (keys.KeyA || keys.ArrowLeft) {
+    if (keys.KeyA || keys.ArrowLeft || data.steeringLeft > 50) {
       this.direction += data.rspeed * delta;
       if (this.direction >= 360) {
         this.direction -= 360;
       }
     }
-    console.log('dir: ' + this.direction + " (" + (360 - this.direction) + ")");
+    // console.log('dir: ' + this.direction + " (" + (360 - this.direction) + ")");
 
     // update movementVector
     var directionEuler = new THREE.Euler(0, THREE.Math.degToRad(this.direction), 0);
     movementVector.applyEuler(directionEuler);
-    console.log('movementVector: ' + movementVector.x + ' ' + movementVector.y + ' ' + movementVector.z);
+    // console.log('movementVector: ' + movementVector.x + ' ' + movementVector.y + ' ' + movementVector.z);
 
     // apply wind
     var windVector = new AFRAME.THREE.Vector3();
@@ -129,9 +151,9 @@ var pararchuteComponent = {
       };
       // console.log('parachute direction: ' + this.direction + ' ' + movementVector.x + ' ' + movementVector.y + ' ' + movementVector.z);
       // console.log('posx ' + this.position.x + ' posy ' + this.position.y + ' posz ' + this.position.z);
-      console.log('alti: ' + this.position.y * 3 + ' feet');
+      // console.log('alti: ' + this.position.y * 3 + ' feet');
     } else {
-      console.log('landed ' + Math.sqrt(this.position.x * this.position.x + this.position.z * this.position.z) + 'm');
+      // console.log('landed ' + Math.sqrt(this.position.x * this.position.x + this.position.z * this.position.z) + 'm');
     }
 
 
@@ -172,7 +194,12 @@ var pararchuteComponent = {
       // console.log('no altimeterarrowelement found ' + data.atimeterarrow);
     }
 
-
+    this.socket.emit('position', {
+      x: positionVector.x,
+      y: positionVector.y,
+      z: positionVector.z,
+      d: this.direction
+    })
   },
 
   remove: function () {

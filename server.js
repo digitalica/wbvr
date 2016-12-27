@@ -23,6 +23,11 @@ io.on('connection', function (client) {
     console.log('pause');
   });
 
+  client.on('position', function(data){
+    console.log('position ' + JSON.stringify(data));
+    io.emit('position', data);
+  });
+
 });
 
 
