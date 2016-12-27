@@ -27,10 +27,32 @@ angular.module('wbvr.viewWatch', ['ngRoute'])
       }
     });
 
+    socket.on('position', function (data) {
+      console.log('position: ' + JSON.stringify(data));
+      $scope.x = Math.floor(data.x);
+      $scope.y = Math.floor(data.y);
+      $scope.z = Math.floor(data.z);
+      $scope.m = Math.floor(Math.sqrt(data.x * data.x + data.z * data.z));
+      $scope.d = Math.round(data.d);
+      $scope.alt = Math.floor(data.y * 3);
+    });
+
     $scope.pause = function () {
       // console.log('pause');
       socket.emit('pause', function () {
       });
-    }
+    };
+
+    $scope.play = function () {
+      // console.log('play');
+      socket.emit('play', function () {
+      });
+    };
+
+    $scope.init = function () {
+      // console.log('init');
+      socket.emit('init', function () {
+      });
+    };
 
   }]);

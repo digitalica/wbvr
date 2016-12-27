@@ -46,9 +46,11 @@ var pararchuteComponent = {
   },
 
   init: function () {
+    var self = this;
     var data = this.data;
     var el = this.el;
 
+    data.playing= true;
 
     this.steeringLeft = 0;
     this.steeringRight = 0;
@@ -57,18 +59,31 @@ var pararchuteComponent = {
     this.socket.on('steering', function (steeringdata) {
       switch (steeringdata.number) {
         case 0:
-          console.log('steering R: ' + JSON.stringify(steeringdata));
+          // console.log('steering R: ' + JSON.stringify(steeringdata));
           data.steeringRight = steeringdata.value;
           break;
         case 1:
-          console.log('steering L: ' + JSON.stringify(steeringdata));
+          // console.log('steering L: ' + JSON.stringify(steeringdata));
           data.steeringLeft = steeringdata.value;
           break;
       }
-      console.log('steeringON ' + data.steeringLeft + '  ' + data.steeringRight);
 
     });
 
+    this.socket.on('pause', function () {
+      data.playing = false;
+      self.pause();
+    });
+
+    this.socket.on('play', function () {
+      data.playing = true;
+      self.play();
+    });
+
+    this.socket.on('init', function () {
+      data.playing = true;
+      self.init();
+    });
 
     // To keep track of the pressed keys.
     this.keys = {};
@@ -105,6 +120,9 @@ var pararchuteComponent = {
 
   tick: function (time, delta) {
     var data = this.data;
+    if (!data.playing) {
+      return;
+    }
     var keys = this.keys;
     var el = this.el;
     var movementVector;
@@ -117,18 +135,39 @@ var pararchuteComponent = {
     movementVector.multiplyScalar(delta);
 
     // update direction
-    if (keys.KeyD || keys.ArrowRight || data.steeringRight > 50) {
-      this.direction -= data.rspeed * delta;
+    var steeringInputRight;
+    var sterringInputLeft;
+    // check right
+    if (keys.KeyD || keys.ArrowRight) {
+      steeringInputRight = 100;
+    } else if (data.steeringRight > 5) {
+      steeringInputRight = data.steeringRight / 100;
+    } else {
+      steeringInputRight = 0;
+    }
+    // go right if needed
+    if (steeringInputRight) {
+      this.direction -= data.rspeed * delta * steeringInputRight;
       if (this.direction < 0) {
         this.direction += 360;
       }
     }
-    if (keys.KeyA || keys.ArrowLeft || data.steeringLeft > 50) {
-      this.direction += data.rspeed * delta;
+    // check left
+    if (keys.KeyA || keys.ArrowLeft) {
+      sterringInputLeft = 100;
+    } else if (data.steeringLeft > 5) {
+      sterringInputLeft = data.steeringLeft / 100;
+    } else {
+      sterringInputLeft = 0;
+    }
+    // go left if needed
+    if (sterringInputLeft) {
+      this.direction += data.rspeed * delta * sterringInputLeft;
       if (this.direction >= 360) {
         this.direction -= 360;
       }
     }
+
     // console.log('dir: ' + this.direction + " (" + (360 - this.direction) + ")");
 
     // update movementVector

@@ -21,10 +21,21 @@ io.on('connection', function (client) {
 
   client.on('pause', function (data) {
     console.log('pause');
+    io.emit('pause', data);
   });
 
-  client.on('position', function(data){
-    console.log('position ' + JSON.stringify(data));
+  client.on('play', function (data) {
+    console.log('play');
+    io.emit('play', data);
+  });
+
+  client.on('init', function (data) {
+    console.log('init');
+    io.emit('init', data);
+  });
+
+  client.on('position', function (data) {
+    // console.log('position ' + JSON.stringify(data));
     io.emit('position', data);
   });
 
