@@ -73,6 +73,9 @@ var pararchuteComponent = {
       switch (buttondata.number) {
         case 0:
           // console.log('button0: ' + JSON.stringify(buttondata));
+          if (buttondata.value) { // button pressed
+            location.reload();
+          }
           break;
         case 1:
           // console.log('button1: ' + JSON.stringify(buttondata));
