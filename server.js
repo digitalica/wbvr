@@ -42,7 +42,7 @@ io.on('connection', function (client) {
     });
 
     client.on('position', function (data) {
-        // console.log('position ' + JSON.stringify(data));
+        console.log('position ' + JSON.stringify(data));
         io.emit('position', data);
     });
 

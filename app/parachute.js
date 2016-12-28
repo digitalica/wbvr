@@ -35,7 +35,7 @@ var MAX_DELTA = 0.2;
 /**
  * Parachute component to control (steering) entities as a parachute.
  */
-var pararchuteComponent = {
+var parachuteControlsComponent = {
   schema: {
     hspeed: {default: 7}, //  horizontal speed m/s
     vspeed: {default: -4}, // vertical speed m/s
@@ -103,8 +103,7 @@ var pararchuteComponent = {
     });
 
     this.socket.on('init', function () {
-      data.playing = true;
-      self.init();
+      location.reload();
     });
 
     // To keep track of the pressed keys.
@@ -334,4 +333,4 @@ var pararchuteComponent = {
   }
 };
 
-AFRAME.registerComponent('parachute-controls', pararchuteComponent);
+AFRAME.registerComponent('parachute-controls', parachuteControlsComponent);
