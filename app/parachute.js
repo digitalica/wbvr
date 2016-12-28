@@ -139,7 +139,7 @@ var pararchuteComponent = {
     var sterringInputLeft;
     // check right
     if (keys.KeyD || keys.ArrowRight) {
-      steeringInputRight = 100;
+      steeringInputRight = 1;
     } else if (data.steeringRight > 5) {
       steeringInputRight = data.steeringRight / 100;
     } else {
@@ -154,7 +154,7 @@ var pararchuteComponent = {
     }
     // check left
     if (keys.KeyA || keys.ArrowLeft) {
-      sterringInputLeft = 100;
+      sterringInputLeft = 1;
     } else if (data.steeringLeft > 5) {
       sterringInputLeft = data.steeringLeft / 100;
     } else {
