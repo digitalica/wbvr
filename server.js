@@ -1,4 +1,11 @@
-var joystick = new (require('joystick'))(0, 1, 350);
+var joystickId = 0;
+var joystick;
+var fs = require('fs');
+if (fs.existsSync("/dev/input/js" + joystickId)) {
+    joystick = new (require('joystick'))(joystickId, 1, 350);
+} else {
+    console.log('Controller not connected!!!');
+}
 
 var express = require('express');
 var app = express();
@@ -9,7 +16,7 @@ app.use('/', express.static(__dirname + '/app'));
 
 
 var io = require('socket.io').listen(app.listen(port, function () {
-  console.log('listening at port ' + port)
+    console.log('listening at port ' + port)
 }));
 
 //
@@ -17,34 +24,34 @@ var io = require('socket.io').listen(app.listen(port, function () {
 //
 
 io.on('connection', function (client) {
-  console.log('Client connected...');
+    console.log('Client connected...');
 
-  client.on('pause', function (data) {
-    console.log('pause');
-    io.emit('pause', data);
-  });
+    client.on('pause', function (data) {
+        console.log('pause');
+        io.emit('pause', data);
+    });
 
-  client.on('play', function (data) {
-    console.log('play');
-    io.emit('play', data);
-  });
+    client.on('play', function (data) {
+        console.log('play');
+        io.emit('play', data);
+    });
 
-  client.on('init', function (data) {
-    console.log('init');
-    io.emit('init', data);
-  });
+    client.on('init', function (data) {
+        console.log('init');
+        io.emit('init', data);
+    });
 
-  client.on('position', function (data) {
-    // console.log('position ' + JSON.stringify(data));
-    io.emit('position', data);
-  });
+    client.on('position', function (data) {
+        // console.log('position ' + JSON.stringify(data));
+        io.emit('position', data);
+    });
 
 });
 
-
-joystick.on('axis', function (data) {
-  // console.log('send steering ' + value);
-  data.value = Math.floor((data.value + 32767) / 655.36);
-  io.emit('steering', data);
-});
-
+if (joystick) {
+    joystick.on('axis', function (data) {
+        // console.log('send steering ' + value);
+        data.value = Math.floor((data.value + 32767) / 655.36);
+        io.emit('steering', data);
+    });
+}
