@@ -50,8 +50,12 @@ io.on('connection', function (client) {
 
 if (joystick) {
     joystick.on('axis', function (data) {
-        // console.log('send steering ' + value);
+        // console.log('send steering ' + data.value);
         data.value = Math.floor((data.value + 32767) / 655.36);
         io.emit('steering', data);
+    });
+    joystick.on('button', function (data) {
+        console.log('send button ' + data.value);
+        io.emit('button', data);
     });
 }

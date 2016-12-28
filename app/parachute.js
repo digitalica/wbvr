@@ -50,7 +50,7 @@ var pararchuteComponent = {
     var data = this.data;
     var el = this.el;
 
-    data.playing= true;
+    data.playing = true;
 
     this.steeringLeft = 0;
     this.steeringRight = 0;
@@ -67,7 +67,26 @@ var pararchuteComponent = {
           data.steeringLeft = steeringdata.value;
           break;
       }
+    });
 
+    this.socket.on('button', function (buttondata) {
+      switch (buttondata.number) {
+        case 0:
+          // console.log('button0: ' + JSON.stringify(buttondata));
+          break;
+        case 1:
+          // console.log('button1: ' + JSON.stringify(buttondata));
+          if (buttondata.value) { // button pressed
+            if (data.playing) {
+              data.playing = false;
+              self.pause();
+            } else {
+              data.playing = true;
+              self.play();
+            }
+          }
+          break;
+      }
     });
 
     this.socket.on('pause', function () {
