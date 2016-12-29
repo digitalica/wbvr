@@ -39,7 +39,7 @@ var parachuteFollowComponent = {
       var rotation = el.getAttribute('rotation');
       el.setAttribute('rotation', {
         x: rotation.x,
-        y: self.positiondata.d,
+        y: self.positiondata.h,
         z: rotation.z
       });
     } else {
