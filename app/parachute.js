@@ -39,7 +39,7 @@ var parachuteControlsComponent = {
   schema: {
     hspeed: {default: 7}, //  horizontal speed m/s
     vspeed: {default: -4}, // vertical speed m/s
-    direction: {default: null}, // direction (initial!)
+    heading: {default: null}, // heading (initial!)
     windspeed: {default: 3},
     winddirection: {default: 0},
     rspeed: {default: 40} // rotation speed (degrees per second)
@@ -109,19 +109,19 @@ var parachuteControlsComponent = {
     // To keep track of the pressed keys.
     this.keys = {};
 
-    this.direction = data.direction;
-    if (this.direction === null) {
-      this.direction = Math.random() * 360;
+    this.heading = data.heading;
+    if (this.heading === null) {
+      this.heading = Math.random() * 360;
     }
     this.position = el.getAttribute('position');
 
 
     this.windVector = new AFRAME.THREE.Vector3(0, 0, -data.windspeed);
-    var directionEuler = new THREE.Euler(0, THREE.Math.degToRad(data.winddirection), 0);
-    this.windVector.applyEuler(directionEuler);
+    var headingEuler = new THREE.Euler(0, THREE.Math.degToRad(data.winddirection), 0);
+    this.windVector.applyEuler(headingEuler);
 
     var exitVector = new AFRAME.THREE.Vector3(0, 0, data.windspeed);
-    exitVector.applyEuler(directionEuler);
+    exitVector.applyEuler(headingEuler);
     exitVector.multiplyScalar(this.position.y / data.vspeed);
     console.log('exitvector: ' + exitVector.x + ' ' + exitVector.y + ' ' + exitVector.z);
     this.position = {
@@ -155,7 +155,7 @@ var parachuteControlsComponent = {
     movementVector = new AFRAME.THREE.Vector3(0, data.vspeed, data.hspeed);
     movementVector.multiplyScalar(delta);
 
-    // update direction
+    // update heading
     var steeringInputRight;
     var sterringInputLeft;
     // check right
@@ -168,9 +168,9 @@ var parachuteControlsComponent = {
     }
     // go right if needed
     if (steeringInputRight) {
-      this.direction -= data.rspeed * delta * steeringInputRight;
-      if (this.direction < 0) {
-        this.direction += 360;
+      this.heading -= data.rspeed * delta * steeringInputRight;
+      if (this.heading < 0) {
+        this.heading += 360;
       }
     }
     // check left
@@ -183,17 +183,17 @@ var parachuteControlsComponent = {
     }
     // go left if needed
     if (sterringInputLeft) {
-      this.direction += data.rspeed * delta * sterringInputLeft;
-      if (this.direction >= 360) {
-        this.direction -= 360;
+      this.heading += data.rspeed * delta * sterringInputLeft;
+      if (this.heading >= 360) {
+        this.heading -= 360;
       }
     }
 
-    // console.log('dir: ' + this.direction + " (" + (360 - this.direction) + ")");
+    // console.log('dir: ' + this.heading+ " (" + (360 - this.heading) + ")");
 
     // update movementVector
-    var directionEuler = new THREE.Euler(0, THREE.Math.degToRad(this.direction), 0);
-    movementVector.applyEuler(directionEuler);
+    var headingEuler = new THREE.Euler(0, THREE.Math.degToRad(this.heading), 0);
+    movementVector.applyEuler(headingEuler);
     // console.log('movementVector: ' + movementVector.x + ' ' + movementVector.y + ' ' + movementVector.z);
 
     // apply wind
@@ -209,7 +209,7 @@ var parachuteControlsComponent = {
         y: this.position.y + movementVector.y,
         z: this.position.z + movementVector.z
       };
-      // console.log('parachute direction: ' + this.direction + ' ' + movementVector.x + ' ' + movementVector.y + ' ' + movementVector.z);
+      // console.log('parachute heading: ' + this.heading + ' ' + movementVector.x + ' ' + movementVector.y + ' ' + movementVector.z);
       // console.log('posx ' + this.position.x + ' posy ' + this.position.y + ' posz ' + this.position.z);
       // console.log('alti: ' + this.position.y * 3 + ' feet');
     } else {
@@ -219,7 +219,7 @@ var parachuteControlsComponent = {
 
     // set position
     var positionVector = new AFRAME.THREE.Vector3(-this.position.x, this.position.y, -this.position.z);
-    //positionVector.applyEuler(directionEuler);
+    //positionVector.applyEuler(headingEuler);
 
     el.setAttribute('position', {
       x: positionVector.x,
@@ -239,7 +239,7 @@ var parachuteControlsComponent = {
     }
     el.setAttribute('rotation', {
       x: rotation.x,
-      y: this.direction,
+      y: this.heading,
       z: rotation.z
     });
 
@@ -258,7 +258,7 @@ var parachuteControlsComponent = {
       x: positionVector.x,
       y: positionVector.y,
       z: positionVector.z,
-      d: this.direction
+      h: this.heading
     })
   },
 

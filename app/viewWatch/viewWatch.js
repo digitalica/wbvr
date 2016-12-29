@@ -33,7 +33,7 @@ angular.module('wbvr.viewWatch', ['ngRoute'])
       $scope.y = Math.floor(data.y);
       $scope.z = Math.floor(data.z);
       $scope.m = Math.floor(Math.sqrt(data.x * data.x + data.z * data.z));
-      $scope.d = Math.round(data.d);
+      $scope.h = Math.round(data.h);
       $scope.alt = Math.floor(data.y * 3);
     });
 
